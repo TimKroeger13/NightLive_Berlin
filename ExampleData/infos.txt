@@ -1,0 +1,53 @@
+EPSG:3857
+WGS 84 / Pseudo-Mercator
+
+For the Server:
+
+[
+    {
+        "location": {
+            "type": "point",
+            "coordinates": [
+                Real,
+                Real
+            ],
+            "date": date,
+            "specific": string
+        }
+    }
+]
+
+For the Client:
+
+[
+    {
+        "location": {
+            "type": "MultiPoint",
+            "coordinates": [
+                [
+                    Real,
+                    Real
+                ],
+                [
+                    Real,
+                    Real
+                ]
+		    ...
+            ]
+
+            "transparency": [
+                Real,
+                Real,
+		    ...
+            ]
+
+            "specific": [
+                "unknown",
+                "bar",
+		    "club",
+            ]
+        }
+    }
+]
+
+
