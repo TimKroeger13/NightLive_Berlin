@@ -1,0 +1,59 @@
+[
+    {
+        "location": {
+            "type": "point",
+            "coordinates": [
+                1481759.5,
+                6893040.0
+            ],
+            "date": "2022-07-08-12-38",
+            "specific": "unknown"
+        }
+    },
+    {
+        "location": {
+            "type": "point",
+            "coordinates": [
+                1482248,
+                6884406
+            ],
+            "date": "2022-07-08-14-56",
+            "specific": "unknown"
+        }
+    },
+    {
+        "location": {
+            "type": "point",
+            "coordinates": [
+                1493223.5,
+                6899911.8
+            ],
+            "date": "2022-07-08-20-12",
+            "specific": "unknown"
+        }
+    },
+    {
+        "location": {
+            "type": "point",
+            "coordinates": [
+                1493042.7,
+                6899673.2
+            ],
+            "date": "2022-07-08-20-01",
+            "specific": "unknown"
+        }
+    },
+    {
+        "location": {
+            "type": "point",
+            "coordinates": [
+                1493677.5,
+                6900200.4
+            ],
+            "date": "2022-07-08-21-02",
+            "specific": "unknown"
+        }
+    }
+],
+,
+,

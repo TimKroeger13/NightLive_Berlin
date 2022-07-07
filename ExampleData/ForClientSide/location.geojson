@@ -1,0 +1,45 @@
+[
+    {
+        "location": {
+            "type": "MultiPoint",
+            "coordinates": [
+                [
+                    1473057,
+                    6901214
+                ],
+                [
+                    1476717,
+                    6893049
+                ],
+                [
+                    1482118,
+                    6890879
+                ],
+                [
+                    1484466,
+                    6895043
+                ],
+                [
+                    1484794,
+                    6887824
+                ]
+            ]
+
+            "transparency": [
+                20,
+                4,
+                7,
+                50,
+                4
+            ]
+
+            "specific": [
+                "unknown",
+                "unknown",
+                "unknown",
+                "unknown",
+                "unknown"
+            ]
+        }
+    }
+]
