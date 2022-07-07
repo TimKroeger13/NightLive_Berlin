@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"name": "database_geojson",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "id": 1, "date": "2022-07-07", "type": "uni", "y_coord": 52.512, "x_coord": 52.512 }, "geometry": { "type": "Point", "coordinates": [ 13.326861435625377, 52.512359887081828 ] } },
+{ "type": "Feature", "properties": { "id": 2, "date": "2022-07-07", "type": "zoo", "y_coord": 52.506, "x_coord": 52.506 }, "geometry": { "type": "Point", "coordinates": [ 13.339499319082215, 52.505731431556526 ] } }
+]
+}
