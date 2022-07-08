@@ -1,150 +1,76 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Practice AJAX</title>
+<header>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+      integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+      crossorigin=""/>
+  <!-- Make sure you put this AFTER Leaflet's CSS -->
+  <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+      integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+      crossorigin=""></script>
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
-    integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
-    crossorigin=""/>
-    <!-- Make sure you put this AFTER Leaflet's CSS -->
-    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
-        integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
-        crossorigin=""></script>
+ <script src="https://unpkg.com/shpjs@latest/dist/shp.js"></script>
 
-    <!-- 
-    <script src="https://unpkg.com/shpjs@latest/dist/shp.js"></script>
-    -->
+ <link href="{{url_for('static', filename = 'style.css')}}" rel="stylesheet">
 
-    <!-- 
+</header>
 
-    <script type="text/javascript">
-      function do_ajax() {
-        var req = new XMLHttpRequest();
-        var result = document.getElementById('result');
-        req.onreadystatechange = function()
-        {
-          if(this.readyState == 4 && this.status == 200) {
-            result.innerHTML = this.responseText;
-          } else {
-            result.innerHTML = "processing...";
-          }
-        }
+<body>
 
-        req.open('POST', '/', true);
-        req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
-        req.send("name=" + document.getElementById('name').value);
-      }
-    </script>
-
-    -->
-
-<style>
-    html, body {
-        height: 100%;
-        margin: 0;
-    }
-    
-    .leaflet-container {
-        height: 400px;
-        width: 600px;
-        max-width: 100%;
-        max-height: 100%;
-    }
-
-    .legend .circle {
-        border-radius: 100%;
-        width: 18px;
-        height: 18px;
-        float: left;
-        margin-right: 8px;
-        opacity: 0.7;
-    }
-</style>
-
-  </head>
-
-  <!--
-  <body>
-    <form action="index" method="post">
-      <label>Name:<input type="text" id="name" value="" /></label>
-      <button type="button" id="btn-post" onclick="do_ajax();">Click</button>
-      <div id="result"></div>
-    </form>
-  </body>
-
-    --> 
-
+  <p> </p>
 
   <h2> The map should be below</h2>
 
   <div id="map"></div>
-  <p id="print_number" ></p>
+
+  <p>"{{url_for('static', filename = 'shp_files/bar')}}"</p>
 
   <script>
-    var map = L.map('map').setView([52.507401, 13.385731], 13);
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '© OpenStreetMap'
-    }).addTo(map);
+      var map = L.map('map').setView([52.507401, 13.385731], 13);
+      
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 19,
+          attribution: '© OpenStreetMap'
+      }).addTo(map);
 
-    map.on('click', function(e){
-        var coord = e.latlng;
-        var lat = coord.lat;
-        var lng = coord.lng;
-        console.log("You clicked the map at latitude: " + lat + " and longitude: " + lng);
-    });
+      let var_names = ["art_centres","bar","biergarten","cafe","cinema"]
+      let colors = ["blue","red","yellow","green","orange"]
+      let color_codes = ["#0000FF","#0000FF","#0000FF","#0000FF","#0000FF"]
 
+      for (let i = 0; i < var_names.length; i++) {
+          shp( "http://127.0.0.1:5000/" + "{{url_for('static', filename = 'shp_files/')}}" + var_names[i] ).then(function(geojson){
+              var myStyle = {
+                  "color": colors[i],
+                  "weight": 10,
+                  "opacity": 1
+              };
+              L.geoJSON(geojson, {
+                  style: myStyle
+              }).addTo(map)
+          })
+      }
 
-    //marker.on('click', function(ev){
-    //  var latlng = map.mouseEventToLatLng(ev.originalEvent);
-    //  console.log(latlng.lat + ', ' + latlng.lng);
-    //});
-
-      //let var_names = ["art_centres","bar","biergarten","cafe","cinema"]
-      //let colors = ["blue","red","yellow","green","orange"]
-      //let color_codes = ["#0000FF","#0000FF","#0000FF","#0000FF","#0000FF"]
-
-      //for (let i = 0; i < var_names.length; i++) {
-      //    shp("http://localhost:8001/selected_secions_geoinformatics_shapefiles/" + var_names[i]).then(function(geojson){
-      //        var myStyle = {
-      //            "color": colors[i],
-      //            "weight": 10,
-      //            "opacity": 1
-      //        };
-      //        L.geoJSON(geojson, {
-      //            style: myStyle
-      //        }).addTo(map)
-      //    })
-      //}
-
-      //var legend = L.control({position: 'bottomleft'});
-      //legend.onAdd = function (map) {
+      var legend = L.control({position: 'bottomleft'});
+      legend.onAdd = function (map) {
           
-          //var div = L.DomUtil.create('div', 'info legend');
-          //labels = ['<strong>Categories</strong>'],
-          //categories = ['art_centres','bar','biergarten','cafe','cinema'];
-//
-          //    for (var i = 0; i < categories.length; i++) {
-          //        div.innerHTML +=
-          //        '<i class = "circle" style="background:' + colors[i] + '"></i> ' +
-          //        (categories[i] ? categories[i] + '<br>' : '+');
-          //    }
+          var div = L.DomUtil.create('div', 'info legend');
+          labels = ['<strong>Categories</strong>'],
+          categories = ['art_centres','bar','biergarten','cafe','cinema'];
 
-          //return div;
-      //};
-      //legend.addTo(map);
+              for (var i = 0; i < categories.length; i++) {
+                  div.innerHTML +=
+                  '<i class = "circle" style="background:' + colors[i] + '"></i> ' +
+                  (categories[i] ? categories[i] + '<br>' : '+');
+              }
+
+          return div;
+      };
+      legend.addTo(map);
 
 
-      //L.marker([10.496093,-66.881935]).addTo(map).on('click', function(e) {
-      //    console.log(e.latlng);
-      //    document.getElementById('print_number').innerHTML=e.latlng;
-//
-      //});
   
   </script>
 
 
 
 
-</html>
+</body>

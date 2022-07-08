@@ -1,0 +1,20 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+.leaflet-container {
+    height: 400px;
+    width: 600px;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.legend .circle {
+    border-radius: 100%;
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
