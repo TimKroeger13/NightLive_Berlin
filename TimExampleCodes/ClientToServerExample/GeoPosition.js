@@ -40,7 +40,7 @@ function SendPostion(position) {
     });
 
     const jasonFormat = JSON.parse(CoordinateJason) // jasonFormat is now a Jason file
-    console.log(jasonFormat)
+    console.log(jasonFormat) // You can also take a look at it in the debug mode, to see that everything is sorted right and its not loger a string.
 
     run(CoordinateJason);
 }
@@ -64,9 +64,9 @@ function run(CoordinateJason) {
     }
 
     // Making our connection
-    xhttp.open('POST', "http://localhost:1234/", true);
+    xhttp.open('POST', "http://localhost:1234/", true); // Where to send the data and how
     xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;charset=UTF-8'); // Jason is sended as as String
-    xhttp.send(CoordinateJason);
+    xhttp.send(CoordinateJason); //Send the data to the server
 
     console.log("[SENDED] Json sended to the server");
 
