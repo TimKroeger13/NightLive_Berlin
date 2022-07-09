@@ -18,14 +18,4 @@ function showPosition(position) {
     var x = document.getElementById("demo");
     x.innerHTML = "Latitude: " + position.coords.latitude +
         "<br>Longitude: " + position.coords.longitude;
-    SendPostion(position)
-}
-
-
-function SendPostion(position) {
-    PosLat = position.coords.latitude
-    PosLon = position.coords.longitude
-
-    console.log('hello')
-
 }
