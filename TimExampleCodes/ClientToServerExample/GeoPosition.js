@@ -57,6 +57,7 @@ function run(CoordinateJason) {
     // function execute after request is successful - Does NOT work right now!
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
+            alert(http.responseText);
             console.log(this.responseText);
         } else {
             console.log("[NO SIGNAL] No data recived from the server");
@@ -66,7 +67,14 @@ function run(CoordinateJason) {
     // Making our connection
     xhttp.open('POST', "http://localhost:1234/", true); // Where to send the data and how
     xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;charset=UTF-8'); // Jason is sended as as String
-    xhttp.send(CoordinateJason); //Send the data to the server
+
+    var dataForSending = "NLBObject=" + CoordinateJason
+    xhttp.send(dataForSending); //Send the data to the server
+
+    xhttp.onload = function () {
+        // Do whatever with response
+        alert(http.responseText + "fromOload")
+    }
 
     console.log("[SENDED] Json sended to the server");
 
