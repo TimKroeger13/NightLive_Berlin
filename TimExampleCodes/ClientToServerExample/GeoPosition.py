@@ -1,3 +1,4 @@
+from operator import le
 from flask import Flask, request, redirect, url_for, render_template, jsonify
 
 
@@ -10,8 +11,8 @@ def index():
     if request.method == "POST":
         print("testsignal, it WORKED!")
         data = request.form
-        print(data)
-        return "testPost"
+        print("Message:", data)
+        return "TESTMassage"
     if request.method == "GET":
         print("This is a GET request")
         return "testGET"

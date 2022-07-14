@@ -57,6 +57,7 @@ function run(CoordinateJason) {
     // function execute after request is successful - Does NOT work right now!
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
+            alert(http.responseText);
             console.log(this.responseText);
         } else {
             console.log("[NO SIGNAL] No data recived from the server");
