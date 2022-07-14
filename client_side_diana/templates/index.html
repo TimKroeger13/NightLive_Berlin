@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>W3.CSS Template</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        </head>
+
 <header>
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
@@ -12,16 +21,29 @@
 
    <link href="{{url_for('static', filename = 'style.css')}}" rel="stylesheet">
 
+   <title> Night Life in Berlin </title>
+
 </header>
 
-<title> Night Life in Berlin </title>
 
 <body>
+    <!-- Navbar (sit on top) -->
+    <div class="w3-top">
+    <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+      <a href="#home" class="w3-bar-item w3-button"> Map </a>
+    </div>
+  </div>
+  
+  <!-- Page content -->
+  <div class="w3-content w3-padding" style="max-width:1564px">
 
-    <p> </p>
 
-    <h2> The map should be below</h2>
+    <h1>Night Life in Berlin</h1>
 
+    <h2> Here you could see the map with several freetime activities points in Berlin </h2>
+
+    <p> Please select your location to show how you are spending your time in Berlin </p>
+   
     <div id="map"></div>
 
     <!-- <p>"{{url_for('static', filename = 'shp_files/bar')}}"</p>  -->
@@ -39,7 +61,7 @@
             attribution: '© OpenStreetMap'
         }).addTo(map);
 
-        let var_names = ["art_centres","bar","biergarten","cafe","cinema"]
+        let var_names = ["art centres","bar","biergarten","cafe","cinema"]
         let colors = ["blue","red","yellow","green","orange"]
         let color_codes = ["#0000FF","#0000FF","#0000FF","#0000FF","#0000FF"]
 
@@ -103,7 +125,76 @@
     }
 </script>
 
+  <!-- About Section -->
+  <div class="w3-container w3-padding-32" id="about">
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">About</h3>
+    <p> This project was created for the Selected Sections of Geoinformatics course at TU Berlin to provide people with the ability to show and see the most popular locations 
+        for the night activities in Berlin
+    </p>
+  </div>
 
+  <div class="w3-row-padding w3-grayscale">
+    <div class="w3-col l3 m6 w3-margin-bottom">
+      <img src="team2.jpg" alt="Tim" style="width:100%">
+      <h3>John Doe</h3>
+      <p class="w3-opacity"> Master Geoinformatics </p>
+      <p> </p>
+      <p><button class="w3-button w3-light-grey w3-block">Contact</button></p>
+    </div>
+    <div class="w3-col l3 m6 w3-margin-bottom">
+      <img src="team1.jpg" alt="Ozan" style="width:100%">
+      <h3>Ozan</h3>
+      <p class="w3-opacity">Master Geoinformatics</p>
+      <p></p>
+      <p><button class="w3-button w3-light-grey w3-block">Contact</button></p>
+    </div>
+    <div class="w3-col l3 m6 w3-margin-bottom">
+      <img src="team3.jpg" alt="Diana" style="width:100%">
+      <h3>Diana</h3>
+      <p class="w3-opacity">Master Urban Design</p>
+      <p></p>
+      <p><button class="w3-button w3-light-grey w3-block">Contact</button></p>
+    </div>
+    <div class="w3-col l3 m6 w3-margin-bottom">
+      <img src="/w3images/team4.jpg" alt="Nilou" style="width:100%">
+      <h3>Nilou</h3>
+      <p class="w3-opacity"></p>
+      <p></p>
+      <p><button class="w3-button w3-light-grey w3-block">Contact</button></p>
+    </div>
+    <div class="w3-col l3 m6 w3-margin-bottom">
+        <img src="/w3images/team4.jpg" alt="Vineeta" style="width:100%">
+        <h3>Vineeta</h3>
+        <p class="w3-opacity"></p>
+        <p></p>
+        <p><button class="w3-button w3-light-grey w3-block">Contact</button></p>
+      </div>
+  </div>
 
+<!-- Image of location/map -->
+<div class="w3-container">
+    <img src="/Users/dianachvirova/Documents/GitHub/NightLive_Berlin/client_side_diana/css/night_life.jpeg" class="w3-image" style="width:100%">
+  </div>
 
+  <!-- Contact Section -->
+  <div class="w3-container w3-padding-32" id="contact">
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Contact</h3>
+    <p>Lets get in touch and talk about your next project.</p>
+    <form action="/action_page.php" target="_blank">
+      <input class="w3-input w3-border" type="text" placeholder="Name" required name="Name">
+      <input class="w3-input w3-section w3-border" type="text" placeholder="Email" required name="Email">
+      <input class="w3-input w3-section w3-border" type="text" placeholder="Subject" required name="Subject">
+      <input class="w3-input w3-section w3-border" type="text" placeholder="Comment" required name="Comment">
+      <button class="w3-button w3-black w3-section" type="submit">
+        <i class="fa fa-paper-plane"></i> SEND MESSAGE
+      </button>
+    </form>
+  </div>
+</div>
+
+  
+  <!-- End page content -->
+  </div>
+  
 </body>
+</html>
