@@ -45,7 +45,6 @@ function SendPostion(position) {
     run(CoordinateJason);
 }
 
-
 //sending data
 function run(CoordinateJason) {
 
@@ -54,28 +53,33 @@ function run(CoordinateJason) {
     // Creating Our XMLHttpRequest object
     var xhttp = new XMLHttpRequest();
 
-    // function execute after request is successful - Does NOT work right now!
-    xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            alert(http.responseText);
-            console.log(this.responseText);
-        } else {
-            console.log("[NO SIGNAL] No data recived from the server");
-        }
-    }
-
     // Making our connection
     xhttp.open('POST', "http://localhost:1234/", true); // Where to send the data and how
     xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;charset=UTF-8'); // Jason is sended as as String
 
+    //Sendig Data with Key
     var dataForSending = "NLBObject=" + CoordinateJason
     xhttp.send(dataForSending); //Send the data to the server
 
-    xhttp.onload = function () {
-        // Do whatever with response
-        alert(http.responseText + "fromOload")
-    }
-
     console.log("[SENDED] Json sended to the server");
+
+}
+
+function GetServerData() {
+    const url = 'http://localhost:1234/GetData'
+    fetch(url)
+        .then(response => response.json())
+        .then(json => {
+            JasonToMap(json)
+            document.getElementById("ServerData").innerHTML = JSON.stringify(json)
+        })
+}
+
+//example function
+
+function JasonToMap(jsonData) {
+
+    console.log("[RECEIVED] Json was received from the server")
+    console.log(jsonData)
 
 }
