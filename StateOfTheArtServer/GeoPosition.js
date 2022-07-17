@@ -75,7 +75,7 @@ function GetServerData() {
         })
 }
 
-//example function
+//OUT function for Leaflet
 
 function JasonToMap(jsonData) {
 
