@@ -1,0 +1,17 @@
+CREATE TABLE userdata (
+    id SERIAL UNIQUE,
+    lat double precision,
+    log double precision,
+    data timestamp without time zone,
+    specific varchar(255)
+);
+
+CREATE TABLE userdata (id SERIAL UNIQUE, lat double precision, log double precision, date timestamp without time zone, specific varchar(255));
+
+SELECT * FROM userdata
+DROP TABLE userdata
+
+
+
+
+

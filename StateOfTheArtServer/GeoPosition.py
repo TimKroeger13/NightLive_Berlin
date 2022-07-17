@@ -1,6 +1,8 @@
 from operator import le
 from flask import Flask, request, redirect, url_for, render_template, jsonify, after_this_request
 import json
+import psycopg2
+from datetime import datetime
 
 
 ServerScript = Flask(__name__)
@@ -18,22 +20,44 @@ def index():
         print(JasonServerData)
         print(JasonServerData["location"]["coordinates"])
 
-        # create DB
-        # ...
+        # DB code
+        try:
+            connection = psycopg2.connect(user="NLB",
+                                          password="selectedSections",
+                                          host="localhost",
+                                          port="55432",
+                                          database="NightliveBerlin")
+            cursor = connection.cursor()
 
-        # Send data back
+            # Get Cords
 
-        # Some Manipulation
+            latcor = JasonServerData["location"]["coordinates"][0]
+            longcor = JasonServerData["location"]["coordinates"][1]
 
-        JasonServerData["location"]["coordinates"][0] = JasonServerData["location"]["coordinates"][0] + 1
-        JasonServerData["location"]["coordinates"][1] = JasonServerData["location"]["coordinates"][1] + 1
+            # Add Data to the database
 
-        # Jason to String
-        ClientJason = json.dumps(JasonServerData)
+            ArrivalTime = datetime.now()
 
-        print(ClientJason)
-        print(type(ClientJason))
+            postgreSQL_select_Query = "INSERT INTO userdata (lat, log, date, specific)VALUES (" + \
+                str(latcor) + ", " + str(longcor) + ", '" + \
+                str(ArrivalTime) + "', 'unknown')"
 
+            cursor.execute(postgreSQL_select_Query)
+            print()
+            print("[SERVER] Data was added to the database")
+            connection.commit()
+
+        except (Exception, psycopg2.Error) as error:
+            print("Error while fetching data from PostgreSQL", error)
+
+        finally:
+            # CLOSE CONNECTION
+            if connection:
+                cursor.close()
+                connection.close()
+                print("PostgreSQL connection is closed")
+
+       # Get request
     if request.method == "GET":
         print()
         print("[SERVER] Server got pinged")
@@ -50,52 +74,58 @@ def GetData():
         response.headers.add('Access-Control-Allow-Origin', '*')
         return response
 
-    jsonResp = {
-        "location": {
-            "type": "MultiPoint",
-            "coordinates": [
-                [
-                    52.5739526,
-                    13.4118061
-                ],
-                [
-                    52.6739526,
-                    13.3118061
-                ],
-                [
-                    52.3739526,
-                    13.2218061
-                ],
-                [
-                    52.8639526,
-                    13.1218061
-                ],
-                [
-                    52.8539526,
-                    13.6118061
-                ]
-            ],
-            "transparency": [
-                20,
-                4,
-                7,
-                50,
-                4
-            ],
-            "specific": [
-                "unknown",
-                "unknown",
-                "unknown",
-                "unknown",
-                "unknown"
-            ]
+    # DB code
+
+    try:
+        connection = psycopg2.connect(user="NLB",
+                                      password="selectedSections",
+                                      host="localhost",
+                                      port="55432",
+                                      database="NightliveBerlin")
+        cursor = connection.cursor()
+
+        ArrivalTime = datetime.now()
+
+        postgreSQL_select_Query = "SELECT lat, log, ((DATE_PART('day', '" + str(ArrivalTime) + "'::timestamp - date::timestamp) * 24) + (DATE_PART('hour', '" + str(ArrivalTime) + "'::timestamp - date::timestamp)) + (DATE_PART('minute', '" + str(ArrivalTime) + "'::timestamp - date::timestamp) / 60) + (DATE_PART('seconds', '" + str(
+            ArrivalTime) + "'::timestamp - date::timestamp) / (60*60))) / 6 * 100 AS transparent, specific from userdata WHERE DATE_PART('hour', '" + str(ArrivalTime) + "'::timestamp - date::timestamp) < 6 AND DATE_PART('day', '" + str(ArrivalTime) + "'::timestamp - date::timestamp) = 0 AND DATE_PART('year', '" + str(ArrivalTime) + "'::timestamp - date::timestamp) = 0"
+
+        cursor.execute(postgreSQL_select_Query)
+        FetchedData = cursor.fetchall()
+
+        coordinates = []
+        transparency = []
+        specific = []
+
+        for row in FetchedData:
+
+            Subcor = [row[0], row[1]]
+            coordinates = coordinates + [Subcor]
+            transparency = transparency + [row[2]]
+            specific = specific + [row[3]]
+
+        DataBaseJson = {
+            "location": {
+                "type": "MultiPoint",
+                "coordinates": coordinates,
+                "transparency": transparency,
+                "specific": specific
+            }
         }
-    }
+
+    except (Exception, psycopg2.Error) as error:
+        print("Error while fetching data from PostgreSQL", error)
+
+    finally:
+        # closing database connection.
+        if connection:
+            cursor.close()
+            connection.close()
+            print("PostgreSQL connection is closed")
 
     print()
     print("[SERVER] Data got sended to the client")
 
-    return jsonify(jsonResp)
+    return jsonify(DataBaseJson)
 
 
 if __name__ == "__main__":
