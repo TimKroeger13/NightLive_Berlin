@@ -15,8 +15,6 @@
 
 <body>
 
-    <p> </p>
-
     <h2> The map should be below</h2>
 
     <div id="map"></div>
@@ -27,6 +25,46 @@
 
     <p id = "demo"> here is my automatic latlon</p>
     <button onclick="getLocation()">Click to get your device's location</button>
+
+    <form action="{{ url_for('add') }}" method="POST">
+        <label for="a">a:</label><br>
+        <input type="text" name="a_value">
+        <label for="b">b:</label><br>
+        <input type="text" name="b_value">
+        <input type="submit">
+    </form>
+
+    <form action="index" method="post">
+        <label>Name:<input type="text" id="name" value="" /></label>
+        <button type="button" id="btn-post" onclick="do_ajax();">Click</button>
+        <div id="result"></div>
+    </form>
+
+    <h1>{% block title %} The database is shown below {% endblock %}</h1>
+    {% for book in books %}
+        <div class='thelist'>
+            <h3>ID # {{ book[0] }} lat {{ book[1] }} lon {{ book[2] }}</h3>
+        </div>
+    {% endfor %}
+
+    <script type="text/javascript">
+        function do_ajax() {
+          var req = new XMLHttpRequest();
+          var result = document.getElementById('result');
+          req.onreadystatechange = function()
+          {
+            if(this.readyState == 4 && this.status == 200) {
+              result.innerHTML = this.responseText;
+            } else {
+              result.innerHTML = "processing...";
+            }
+          }
+  
+          req.open('POST', '/', true);
+          req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+          req.send("name=" + document.getElementById('name').value);
+        }
+    </script>
 
     <script>
         var map = L.map('map').setView([52.507401, 13.385731], 13);
@@ -71,34 +109,37 @@
         legend.addTo(map);
 
         map.on('click', function(e) {
-            //alert("Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng)
             var lat = e.latlng.lat
             var lon = e.latlng.lng
             console.log("here is my lat " + lat + " and here is my lon " + e.latlng.lng)
 
             document.getElementById("latlondoc").innerHTML = "here is my lat " + lat + " here is my lon " + lon;
         });
-
-
-    
     </script>
 
+    <script>
+        var x = document.getElementById("demo");
+        function getLocation() {
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+          } else {
+            x.innerHTML = "Geolocation is not supported by this browser.";
+          }
+        }
 
-<script>
-    var x = document.getElementById("demo");
-    function getLocation() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-      } else {
-        x.innerHTML = "Geolocation is not supported by this browser.";
-      }
-    }
-    
-    function showPosition(position) {
-      x.innerHTML = "Latitude: " + position.coords.latitude +
-      "<br>Longitude: " + position.coords.longitude;
-    }
-</script>
+        function showPosition(position) {
+          x.innerHTML = "Latitude: " + position.coords.latitude +
+          "<br>Longitude: " + position.coords.longitude;
+        }
+    </script>
+
+    <script>
+
+        var myvar= "{{ books }}"
+        console.log(myvar)
+
+
+    </script>
 
 
 
