@@ -14,6 +14,24 @@ function CreateLeafletMap(json) {
 
         var marker = L.marker([lat, long]).addTo(map);
     }
+
+    var barStyle = {
+        "color": "#0020C4",
+        "weight": 2,
+        "opacity": 1
+    };
+
+    var nightclubsStyle = {
+        "color": "#C60060",
+        "weight": 2,
+        "opacity": 1
+    };
+
+    L.geoJSON(bar, { style: barStyle }).addTo(map);
+    L.geoJSON(nightclubs, { style: nightclubsStyle }).addTo(map);
+
+
+
 }
 
 

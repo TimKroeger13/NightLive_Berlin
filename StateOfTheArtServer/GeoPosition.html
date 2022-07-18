@@ -1,10 +1,12 @@
 <head>
-    <meta charset="UTF-8" />
-    <title>LocationTest</title>
-    <script src="GeoPosition.js"></script>
 
+
+
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocationTest</title>
+    <script src="GeoPosition.js"></script>
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
         integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
@@ -15,20 +17,135 @@
         integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
         crossorigin=""></script>
 
+    <script src="geojson/bar_polygon.geojson.js"></script>
+
+    <script src="geojson/nightclubs.geojson.js"></script>
+
+    <script src="geojson/cinema_polygon.geojson.js"></script>
+
+    <script src="geojson/cafe_polygon.geojson.js"></script>
+
+    <script src="geojson/biergarten_polygon.geojson.js"></script>
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
 </head>
 
 <body>
 
+    <!-- Navbar (sit on top) -->
+    <div class="w3-top">
+        <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+            <a href="#home" class="w3-bar-item w3-button"> TU Berlin </a>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="w3-display-container w3-content w3-wide" style="max-width:1500px;" id="home">
+        <img class="w3-image" src="night_life.jpeg" alt="Architecture" width="1500" height="800">
+        <div class="w3-display-middle w3-margin-top w3-center">
+            <h1 class="w3-xxlarge w3-text-white"><span class="w3-padding w3-black w3-opacity-min"><b>Selected Sections
+                        of
+                        Geoinformatics</b></span> <span class="w3-hide-small w3-text-light-grey"></span></h1>
+        </div>
+    </header>
+
+    <h1> </h1>
+    <h1> </h1>
+    <h1> Night Life in Berlin </h1>
+
+    <h2 class="w3-border-bottom w3-border-light-grey w3-padding-16"> Here you could see the map with several freetime
+        <br>
+        activities points in Berlin
+    </h2>
+
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16"> Please select your location to show how you are
+        spending your time in Berlin </h3>
+
+    <p id="latlon"> If you press the button below, you can automatically get your current location to put it on the map
+    </p>
+    <button onclick="getLocation()">Click to send your Postion</button> <!-- Sends a singal to JS -->
+    <br>
+    </br>
+
+    <div id="map" style="height: 600px;"></div>
+
+    </br>
+
+    <label id="ServerData"></label>
+
+    <!-- About Section -->
+    <div class="w3-container w3-padding-32" id="about">
+        <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">About</h3>
+        <p> This project was created for the Selected Sections of Geoinformatics course at TU Berlin to provide people
+            with
+            the ability to show and see the most popular locations
+            for the night activities in Berlin
+        </p>
+    </div>
+
+    <div class="w3-row-padding w3-grayscale">
+        <div class="w3-col l3 m6 w3-margin-bottom">
+            <img src="progr.png" alt="Tim" style="width:30%">
+            <h3>Tim</h3>
+            <p class="w3-opacity"> Master Geodesy and Geoinformation Science </p>
+            <p> </p>
+            <p><button class="w3-button w3-light-grey w3-block">Contact</button></p>
+        </div>
+        <div class="w3-col l3 m6 w3-margin-bottom">
+            <img src="progr.png" alt="Ozan" style="width:30%">
+            <h3>Ozan</h3>
+            <p class="w3-opacity">Master Geodesy and Geoinformation Science</p>
+            <p></p>
+            <p><button class="w3-button w3-light-grey w3-block">Contact</button></p>
+        </div>
+        <div class="w3-col l3 m6 w3-margin-bottom">
+            <img src="scientist.png" alt="Diana" style="width:30%">
+            <h3>Diana</h3>
+            <p class="w3-opacity">Master Urban Design</p>
+            <p></p>
+            <p><button class="w3-button w3-light-grey w3-block">Contact</button></p>
+        </div>
+        <div class="w3-col l3 m6 w3-margin-bottom">
+            <img src="scientist.png" alt="Nilou" style="width:30%">
+            <h3>Nilou</h3>
+            <p class="w3-opacity">Master Geodesy and Geoinformation Science </p>
+            <p></p>
+            <p><button class="w3-button w3-light-grey w3-block">Contact</button></p>
+        </div>
+        <div class="w3-col l3 m6 w3-margin-bottom">
+            <img src="scientist.png" alt="Vineeta" style="width:30%">
+            <h3>Vineeta</h3>
+            <p class="w3-opacity">Master Geodesy and Geoinformation Science </p>
+            <p></p>
+            <p><button class="w3-button w3-light-grey w3-block">Contact</button></p>
+        </div>
+    </div>
+
+    <div class="w3-container w3-padding-32" id="contact">
+        <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Contact</h3>
+        <p>Lets get in touch and talk about your next project.</p>
+        <form action="/action_page.php" target="_blank">
+            <input class="w3-input w3-border" type="text" placeholder="Name" required name="Name">
+            <input class="w3-input w3-section w3-border" type="text" placeholder="Email" required name="Email">
+            <input class="w3-input w3-section w3-border" type="text" placeholder="Subject" required name="Subject">
+            <input class="w3-input w3-section w3-border" type="text" placeholder="Comment" required name="Comment">
+            <button class="w3-button w3-black w3-section" type="submit">
+                <i class="fa fa-paper-plane"></i> SEND MESSAGE
+            </button>
+        </form>
+    </div>
+
+    <!--
+
     <p> Click on the map to see the lat and lon</p>
 
     <p id="latlon"> here is my automatic latlon</p>
-    <button onclick="getLocation()">Click to send your Postion</button> <!-- Sends a singal to JS -->
+    <button onclick="getLocation()">Click to send your Postion</button>
 
-    <!--
-    </br></br></br>
 
-    <button onclick="GetServerData()">Load Server Data</button>
-    -->
+
+
 
     </br></br>
 
@@ -37,7 +154,8 @@
     <label id="ServerData"></label>
 
 
-    <!-- integrate -->
+
+    -->
 
     <script>
 
