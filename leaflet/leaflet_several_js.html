@@ -42,14 +42,20 @@
             attribution: '© OpenStreetMap'
              }).addTo(map);
 
-             var myStyle = {
+             var myStyle1 = {
                 "color": "#ff7800",
+                // "weight": 5,
+                // "opacity": 0.65
+            };
+
+            var myStyle2 = {
+                "color": "#ff001e",
                 "weight": 5,
                 "opacity": 0.65
             };
 
-        L.geoJSON(bar,{style: myStyle}).addTo(map);
-        L.geoJSON(nightclubs).addTo(map);
+        L.geoJSON(bar,{style: {m\}).addTo(map);
+        L.geoJSON(nightclubs,{style: myStyle2}).addTo(map);
         L.geoJSON(cinema).addTo(map);
         L.geoJSON(cafe).addTo(map);
         L.geoJSON(biergarten).addTo(map);
