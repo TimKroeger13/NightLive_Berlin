@@ -1,6 +1,11 @@
 
 function CreateLeafletMap(json) {
 
+    var container = L.DomUtil.get('map');
+    if (container != null) {
+        container._leaflet_id = null;
+    }
+
     var map = L.map('map').setView([52.5101148, 13.3303686], 12);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -14,6 +19,8 @@ function CreateLeafletMap(json) {
 
         var marker = L.marker([lat, long]).addTo(map);
     }
+
+
 
 }
 
