@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+    integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+    crossorigin=""/>
+
+     <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+    integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+    crossorigin=""></script>
+
+    <script src="geojson/bar.geojson.js"></script>
+
+    <script src="geojson/nightclubs.geojson.js"></script>
+
+    <script src="geojson/cinema.geojson.js"></script>
+
+    <script src="geojson/cafe.geojson.js"></script>
+
+    <script src="geojson/biergarten.geojson.js"></script>
+    
+    <script src="geojson/arts_centre.geojson.js"></script>
+
+
+</head>
+<body>
+
+    <div id="map" style="height: 1000px;"></div>
+
+    <script>
+        var map = L.map('map').setView([52.507401, 13.385731], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap'
+             }).addTo(map);
+         
+        L.geoJSON(bar).addTo(map);
+        L.geoJSON(nightclubs).addTo(map);
+        L.geoJSON(cinema).addTo(map);
+        L.geoJSON(cafe).addTo(map);
+        L.geoJSON(biergarten).addTo(map);
+        L.geoJSON(arts_centre).addTo(map);
+
+    </script>
+
+</body>
+</html>
