@@ -41,8 +41,14 @@
             maxZoom: 19,
             attribution: '© OpenStreetMap'
              }).addTo(map);
-         
-        L.geoJSON(bar).addTo(map);
+
+             var myStyle = {
+                "color": "#ff7800",
+                "weight": 5,
+                "opacity": 0.65
+            };
+
+        L.geoJSON(bar,{style: myStyle}).addTo(map);
         L.geoJSON(nightclubs).addTo(map);
         L.geoJSON(cinema).addTo(map);
         L.geoJSON(cafe).addTo(map);
