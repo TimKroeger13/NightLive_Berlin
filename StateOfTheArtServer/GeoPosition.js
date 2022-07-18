@@ -1,4 +1,22 @@
-// Options for the latancy
+
+function CreateLeafletMap(json) {
+
+    var map = L.map('map').setView([52.5101148, 13.3303686], 12);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap'
+    }).addTo(map);
+
+    for (let i = 0; i < json["location"]["coordinates"].length; i++) {
+        lat = json["location"]["coordinates"][i][0]
+        long = json["location"]["coordinates"][i][1]
+
+        var marker = L.marker([lat, long]).addTo(map);
+    }
+
+}
+
 var options = {
     enableHighAccuracy: true,
     timeout: 5000,
@@ -70,16 +88,8 @@ function GetServerData() {
     fetch(url)
         .then(response => response.json())
         .then(json => {
-            JasonToMap(json)
+            CreateLeafletMap(json)
             document.getElementById("ServerData").innerHTML = JSON.stringify(json)
         })
 }
 
-//OUT function for Leaflet
-
-function JasonToMap(jsonData) {
-
-    console.log("[RECEIVED] Json was received from the server")
-    console.log(jsonData)
-
-}
