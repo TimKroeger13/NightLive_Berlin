@@ -46,16 +46,16 @@ function getLocation() {
     var x = document.getElementById("latlon");
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition, null, options);
-    } else {
-        x.innerHTML = "Geolocation is not supported by this browser.";
-    }
+    } //else {
+    // x.innerHTML = "Geolocation is not supported by this browser.";
+    //}
 }
 
 // Send Location back localy
 function showPosition(position) {
-    var x = document.getElementById("latlon");
-    x.innerHTML = "Latitude: " + position.coords.latitude +
-        "<br>Longitude: " + position.coords.longitude;
+    //var x = document.getElementById("latlon");
+    //x.innerHTML = "Latitude: " + position.coords.latitude +
+    //   "<br>Longitude: " + position.coords.longitude;
     SendPostion(position)
 }
 
